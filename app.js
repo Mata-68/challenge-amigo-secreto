@@ -1,13 +1,41 @@
 // El principal objetivo de este desafío es fortalecer tus habilidades en lógica de programación.
 // Aquí deberás desarrollar la lógica para resolver el problema.
 
-let listaAmigos = JSON.parse(localStorage.getItem("listaAmigos")) || [];
+let listaAmigos = [];
 let asignaciones = {};
 let jugadorActual = "";
 
 // Cargar la lista de amigos al iniciar
 window.onload = function () {
     actualizarLista();
+};
+
+// Función para iniciar un nuevo juego con una lista vacía de jugadores
+function nuevoJuego() {
+    listaAmigos = []; // Reiniciar la lista de jugadores
+    asignaciones = {}; // Reiniciar asignaciones
+    jugadorActual = "";
+    localStorage.removeItem("listaAmigos"); // Eliminar la lista guardada en localStorage
+    document.getElementById("listaAmigos").innerHTML = "";
+    document.getElementById("resultado").innerHTML = "";
+    document.getElementById("jugadorNombre").value = "";
+    document.getElementById("draw-button").disabled = true;
+    alert("Se ha iniciado un nuevo juego. Ingrese nuevos jugadores.");
+}
+
+// Agregar botón para iniciar un nuevo juego
+window.onload = function () {
+    actualizarLista();
+    let container = document.createElement("div");
+    container.style.textAlign = "center";
+    
+    let botonNuevoJuego = document.createElement("button");
+    botonNuevoJuego.textContent = "Nuevo Juego";
+    botonNuevoJuego.onclick = nuevoJuego;
+    botonNuevoJuego.className = "button-new-game";
+    
+    container.appendChild(botonNuevoJuego);
+    document.body.appendChild(container);
 };
 
 // Función para agregar un amigo (Administrador)
@@ -99,3 +127,4 @@ function mostrarResultadoJugador() {
         alert("No se encontró un amigo secreto para este jugador. Intente nuevamente.");
     }
 }
+
